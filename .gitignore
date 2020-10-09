@@ -1,0 +1,5 @@
+.vim/plugged
+.vim/autoload
+.vim/.netrwhist
+.tmux/plugins
+.tmux/resurrect

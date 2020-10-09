@@ -1,0 +1,299 @@
+"""""""""""""""""""""""""""""""""""
+" Install VIM-Plug if not already here
+"""""""""""""""""""""""""""""""""""""
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+"""""""""""""""""""""""""""""""""""
+" Configuration Section
+"""""""""""""""""""""""""""""""""""""
+" Some definitions
+set nocompatible
+set noshowmode
+set encoding=utf8
+
+" Basic options
+syntax on
+set number
+set ruler
+set cursorline
+set conceallevel=0
+let g:indentLine_concealcursor = ""
+set nospell
+
+" Set Proper Tabs
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set smarttab
+set expandtab
+
+" Always display the status line
+set laststatus=2
+
+" No room between windows
+set guiheadroom=0
+
+" Sync the clipboard with the system
+set clipboard=unnamedplus
+
+" Some other settings
+set updatetime=100
+set autochdir
+set previewheight=5
+set scrolloff=999
+set undodir=~/.vim/undodir
+set undofile
+let mapleader=' '
+set autoread
+
+" case insensitive search
+set ic
+" set hlsearch
+
+" Set the tags
+set tags+=tags
+set tags=./tags;
+let g:autotagTagsFile=".tags"
+
+" Theme and Styling 
+set t_Co=256
+let base16colorspace=256  " Access colors present in 256 colorspace
+
+" Spelling
+set spell spelllang=en_gb
+set nospell
+
+" Set all the filetype settings local
+filetype plugin indent on
+
+"""""""""""""""""""""""""""""""""""""
+" VIM-plug configuration
+"""""""""""""""""""""""""""""""""""""
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
+" Theme / Interface
+" Plug 'ajh17/Spacegray.vim'                                          " Dark color theme
+" Plug 'NLKNguyen/papercolor-theme'                                   " Light color theme
+Plug 'adrian5/oceanic-next-vim'                                     " Dark theme
+Plug 'itchyny/lightline.vim'                                        " Statusbar
+
+" Generic Programming Support
+Plug 'w0rp/ale'                                                     " Linter
+Plug 'tomtom/tcomment_vim'                                          " Comment whole blocks of code
+" Plug 'szw/vim-tags'
+" Plug 'craigemery/vim-autotag'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'preservim/tagbar'                                             " Tag bar
+Plug 'Valloric/YouCompleteMe'
+Plug 'Yggdroot/indentLine'                                          " Indention vertical lines
+Plug 'dbakker/vim-projectroot'                                      " Enables fzf to always start from root of project
+Plug 'vim-vdebug/vdebug'                                            " General debugger
+Plug 'jremmen/vim-ripgrep'                                          " Fast grep though system
+Plug 'vim-test/vim-test'                                            " Run all kinds of tests from VIM
+
+" Git Support
+Plug 'airblade/vim-gitgutter'                                       " Git changes in numbers line
+
+" LaTeX support
+Plug 'lervag/vimtex'
+
+" Markdown support
+Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}             " For previewing markdown files
+
+" Notes
+Plug 'StotoV/zettel'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }   " Fuzzy find support
+Plug 'junegunn/fzf.vim'
+" Plug 'vimwiki/vimwiki'
+" Plug 'michal-h21/vim-zettel'
+
+" Initialize plugin system
+call plug#end()
+
+"""""""""""""""""""""""""""""""""""""
+" Plugin configuration
+"""""""""""""""""""""""""""""""""""""
+" STYLING "
+    " set guifont=Meslo\ LG\ M\ Regular\ for\ Powerline\ Nerd\ Font\ Complete:h13
+
+    " Dark
+    set background=dark
+    " colorscheme spacegray
+
+    " Light
+    " set background=light
+    " colorscheme PaperColor
+    " colorscheme warm-night
+    colorscheme oceanicnext
+" END STYLING "
+
+" LIGHTLINE
+    let g:lightline = {
+          \ 'colorscheme': 'jellybeans',
+          \ 'active': {
+          \   'left': [ [ 'mode', 'modified' ],
+          \             [ 'readonly', 'filename', 'modified' ] ]
+          \ }
+    \ }
+" END LIGHTLINE
+
+" START VIM-RIPGREP
+    nnoremap <silent><leader>gf :Rg<SPACE>
+" END VIM-RIPGREP
+
+" VDEBUG
+    let g:vdebug_options = {
+    \   'debug_window_level' : 0,
+    \   'port': 9003,
+    \   'path_maps': {'/isik': '/home/tom/Documents/Stock-IT/Projecten/iSee iKnow/isik_app', '/isik_crons': '/home/tom/Documents/Stock-IT/Projecten/iSee iKnow/isik_app/env/isik/cron'}
+    \ }
+    nmap <silent> <leader>bp :BreakpointWindow<CR>
+" END VDEBUG
+
+" ALE
+    " Add keystrokes for Ale
+    nmap <silent> <leader>aj :ALENext<cr>
+    nmap <silent> <leader>ak :ALEPrevious<cr>
+    nmap <silent> <leader>bd :ALEDisableBuffer<CR>
+    nmap <silent> <leader>be :ALEEnableBuffer<CR>
+
+    let g:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
+    let g:ale_set_signs = 1
+    let g:ale_sign_column_always = 1
+    let g:ale_warn_about_trailing_whitespace = 1
+    let g:ale_sign_error = '>>'
+    let g:ale_sign_warning = '--'
+    let g:ale_lint_on_text_changed = 1
+    let g:ale_lint_on_save = 1
+    let g:ale_lint_on_enter = 1
+    let g:ale_open_list = 0
+    let g:ale_keep_list_window_open = 0
+" END ALE
+
+" VIM-QF
+    let g:qf_loclist_window_bottom=0
+" END VIM-QF
+
+" YOUCOMPLETEME
+    set completeopt-=preview
+    nnoremap <silent>gd :YcmCompleter GoTo<CR>
+    nnoremap <silent>gf :YcmCompleter FixIt<CR>
+" END YOUCOMPLETEME
+
+" VIM-GITGUTTER .
+    highlight GitGutterAdd    guifg=#009900 guibg=#000000 ctermfg=2
+    highlight GitGutterChange guifg=#bbbb00 guibg=#000000 ctermfg=3
+    highlight GitGutterDelete guifg=#ff2222 guibg=#000000 ctermfg=1
+
+    let g:gitgutter_sign_added = '++'
+    let g:gitgutter_sign_modified = '~~'
+    let g:gitgutter_sign_removed = '**'
+    let g:gitgutter_sign_removed_first_line = '^^'
+    let g:gitgutter_sign_modified_removed = 'ww'
+
+    " Change hunks
+    nnoremap ]h :GitGutterNextHunk<CR>
+    nnoremap [h :GitGutterPrevHunk<CR>
+    nnoremap <leader>uh :GitGutterUndoHunk<CR>
+    nnoremap <leader>hf :GitGutterFold<CR>
+" END VIM-GITGUTTER
+
+" START TAGBAR
+    nnoremap <leader>t :TagbarToggle<CR>
+" END TAGBAR
+
+" START INDENTLINE
+    let g:indentLine_enabled = 1
+    " Needed as the package changes it
+    set conceallevel=0
+" END INDENTLINE
+
+" START FZF
+    nnoremap <silent><leader>o :ProjectRootExe FZF<CR>
+    nnoremap <silent><leader>O :FZF~<CR>
+" END FZF
+
+" START VIMTEX
+    let g:tex_flavor = 'latex'
+" END VIMTEX
+
+" START VIM-TEST
+    nmap <silent> <leader>n :TestNearest<CR>
+    nmap <silent> <leader>f :TestFile<CR>
+    nmap <silent> <leader>s :TestSuite<CR>
+    nmap <silent> <leader>l :TestLast<CR>
+    nmap <silent> <leader>g :TestVisit<CR>
+" END VIM-TEST
+
+" START GUTENTAGS
+    let g:gutentags_enabled = 1
+    let g:gutentags_trace = 0
+" END GUTENTAGS
+
+" START MARKDOWN
+    let g:markdown_fenced_languages = ['html', 'python', 'javascript', 'bash', 'php', 'ruby', 'vim']
+" END MARKDOWN
+
+" START NOTES
+    " let g:vimwiki_list = [{'path': '~/Documents/Notes/', 'auto_tags':1, 'syntax':'markdown', 'ext':'.md'}]
+    " let g:nv_search_paths = ['~/Documents/Notes']
+    " let g:zettel_format = "%file_no_%title"
+    " let g:zettel_options = [{"template" :  "~/.vim/ftplugin/zettel.tpl"}]
+    " let g:zettel_default_title = "Note"
+    "
+    " autocmd VimEnter * :ZettelSetActiveWiki 0
+    " nnoremap <leader>zn :ZettelNew<space>
+    " nnoremap <leader>zo :ZettelOpen<CR>
+" END NOTES
+
+" START ZETTEL
+    let g:zettel_dir = "~/Documents/Notes"
+    let $FZF_DEFAULT_OPTS="--bind \"alt-j:preview-half-page-down,alt-k:preview-half-page-up\""
+    au BufNewFile,BufRead,BufReadPost *.zettel set syntax=markdown
+    let g:markdown_folding = 1
+
+    nnoremap <leader>zn :CreateZettel<space>
+    " nnoremap <leader>ZN :CreateZettelInsertLink<space>
+    nnoremap <leader>zs :SearchZettels<CR>
+    nnoremap <leader>zd :DeleteZettel<space>
+    nnoremap <leader>zi :InsertZettelLink<CR>
+    nnoremap <CR> :FollowLink<CR>
+" END ZETTEL
+
+"""""""""""""""""""""""""""""""""""""
+" Mappings configuration
+"""""""""""""""""""""""""""""""""""""
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Make moving around windows and tabs easier
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-l> :wincmd l<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <S-h> :tabprevious<CR>
+nnoremap <S-l> :tabnext<CR>
+nnoremap <Win-l> :wincmd l<CR>
+
+" Disable arrow movement, resize splits instead.
+nnoremap <C-Up>    :resize +2<CR>
+nnoremap <C-Down>  :resize -2<CR>
+nnoremap <C-Left>  :vertical resize +2<CR>
+nnoremap <C-Right> :vertical resize -2<CR>
+
+" Navigate the display lines instead of the physical lines
+noremap  <silent> k gk
+noremap  <silent> j gj
+noremap  <silent> 0 g0
+noremap  <silent> $ g$
+noremap  <silent> g0 0
+noremap  <silent> g$ $
+
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q

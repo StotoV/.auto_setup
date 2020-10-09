@@ -1,0 +1,9 @@
+[Unit]
+Description=Checkupdate service
+After=network.target
+
+[Service]
+Type=simple
+User=tom
+Environment="DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
+ExecStart=/bin/bash -c 'systemctl list-units | grep -i failed | /etc/systemd/system/systemd_monitor_script'

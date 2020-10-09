@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Get the number of updates
+i=0
+while read OUTPUT
+do
+    ((i+=1))
+done
+
+# Send notifications
+if [ "$i" != "0" ]
+then
+    # notify-send --expire-time=0 "$i new system updates";
+    notify-send "$i new system updates";
+fi

@@ -1,0 +1,294 @@
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+exec xrdb ~/.Xresources
+exec_always nm-applet --indicator
+exec_always feh --bg-fill ~/Pictures/wallpaper.jpg
+exec_always --no-startup-id picom &
+exec_always --no-startup-id dunst
+exec_always xrandr --dpi 140
+exec_always --no-startup-id numlockx
+exec_always batsignal -b -e -W 'Battery 15%' -C 'Battery 5%'
+exec_always sudo thermald
+exec_always setxkbmap us altgr-intl
+set $term alacritty
+set $menu rofi -show run
+font pango:DejaVu Sans Mono 12
+bar {
+position top
+status_command i3status --config ~/.config/i3/i3status.conf
+colors {
+statusline #ffffff
+background #323232
+inactive_workspace #32323200 #32323200 #5c5c5c
+}
+}
+default_border pixel 2
+gaps inner 10
+set $highlight #BC2C1A
+client.focused #4c7899 #285577 #ffffff $highlight $highlight
+popup_during_fullscreen smart
+bindsym $mod+Shift+s exec i3lock -c 000000
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+space exec $menu
+bindsym $mod+Shift+c exec ppi3 ~/.config/i3/_config ~/.config/i3/config; reload
+bindsym $mod+Shift+e exec i3-msg exit
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+1 workspace number 1
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Escape mode "default"
+bindsym $mod+mod2+KP_0 mode "default"
+bindsym $mod+mod2+KP_1 mode "num_1"
+bindsym $mod+mod2+KP_2 mode "num_2"
+bindsym $mod+mod2+KP_3 mode "num_3"
+bindsym $mod+m move workspace to output left
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+r mode "resize"
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym Home exec playerctl play-pause
+bindsym End exec playerctl previous
+bindsym Insert exec playerctl next
+bindsym $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'
+mode "resize" {
+bindsym $left resize shrink width 20px
+bindsym $down resize grow height 20px
+bindsym $up resize shrink height 20px
+bindsym $right resize grow width 20px
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+mode "num_1" {
+bindsym $mod+Shift+s exec i3lock -c 000000
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+space exec $menu
+bindsym $mod+Shift+c exec ppi3 ~/.config/i3/_config ~/.config/i3/config; reload
+bindsym $mod+Shift+e exec i3-msg exit
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+1 workspace number 1
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Escape mode "default"
+bindsym $mod+mod2+KP_0 mode "default"
+bindsym $mod+mod2+KP_1 mode "num_1"
+bindsym $mod+mod2+KP_2 mode "num_2"
+bindsym $mod+mod2+KP_3 mode "num_3"
+bindsym $mod+m move workspace to output left
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+r mode "resize"
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym Home exec playerctl play-pause
+bindsym End exec playerctl previous
+bindsym Insert exec playerctl next
+bindsym $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'
+bindsym $mod+2 workspace number 12
+bindsym $mod+3 workspace number 13
+bindsym $mod+4 workspace number 14
+bindsym $mod+5 workspace number 15
+bindsym $mod+6 workspace number 16
+bindsym $mod+Shift+2 move container to workspace number 12
+bindsym $mod+Shift+3 move container to workspace number 13
+bindsym $mod+Shift+4 move container to workspace number 14
+bindsym $mod+Shift+5 move container to workspace number 15
+bindsym $mod+Shift+6 move container to workspace number 16
+}
+mode "num_2" {
+bindsym $mod+Shift+s exec i3lock -c 000000
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+space exec $menu
+bindsym $mod+Shift+c exec ppi3 ~/.config/i3/_config ~/.config/i3/config; reload
+bindsym $mod+Shift+e exec i3-msg exit
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+1 workspace number 1
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Escape mode "default"
+bindsym $mod+mod2+KP_0 mode "default"
+bindsym $mod+mod2+KP_1 mode "num_1"
+bindsym $mod+mod2+KP_2 mode "num_2"
+bindsym $mod+mod2+KP_3 mode "num_3"
+bindsym $mod+m move workspace to output left
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+r mode "resize"
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym Home exec playerctl play-pause
+bindsym End exec playerctl previous
+bindsym Insert exec playerctl next
+bindsym $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'
+bindsym $mod+2 workspace number 22
+bindsym $mod+3 workspace number 23
+bindsym $mod+4 workspace number 24
+bindsym $mod+5 workspace number 25
+bindsym $mod+6 workspace number 26
+bindsym $mod+Shift+2 move container to workspace number 22
+bindsym $mod+Shift+3 move container to workspace number 23
+bindsym $mod+Shift+4 move container to workspace number 24
+bindsym $mod+Shift+5 move container to workspace number 25
+bindsym $mod+Shift+6 move container to workspace number 26
+}
+mode "num_3" {
+bindsym $mod+Shift+s exec i3lock -c 000000
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+space exec $menu
+bindsym $mod+Shift+c exec ppi3 ~/.config/i3/_config ~/.config/i3/config; reload
+bindsym $mod+Shift+e exec i3-msg exit
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+1 workspace number 1
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Escape mode "default"
+bindsym $mod+mod2+KP_0 mode "default"
+bindsym $mod+mod2+KP_1 mode "num_1"
+bindsym $mod+mod2+KP_2 mode "num_2"
+bindsym $mod+mod2+KP_3 mode "num_3"
+bindsym $mod+m move workspace to output left
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+r mode "resize"
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym Home exec playerctl play-pause
+bindsym End exec playerctl previous
+bindsym Insert exec playerctl next
+bindsym $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'
+bindsym $mod+2 workspace number 32
+bindsym $mod+3 workspace number 33
+bindsym $mod+4 workspace number 34
+bindsym $mod+5 workspace number 35
+bindsym $mod+6 workspace number 36
+bindsym $mod+Shift+2 move container to workspace number 32
+bindsym $mod+Shift+3 move container to workspace number 33
+bindsym $mod+Shift+4 move container to workspace number 34
+bindsym $mod+Shift+5 move container to workspace number 35
+bindsym $mod+Shift+6 move container to workspace number 36
+}

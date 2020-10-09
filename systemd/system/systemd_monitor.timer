@@ -1,0 +1,8 @@
+[Unit]
+Description=Systemd monitor
+
+[Timer]
+OnCalendar=*-*-* *:00:00
+
+[Install]
+WantedBy=timers.target
