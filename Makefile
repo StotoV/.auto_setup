@@ -4,7 +4,7 @@ MKFILE_DIR := $(dir $(MKFILE_PATH))
 PACKAGE_INSTALL = pacman -S 
 
 
-.PHONY: install update
+.PHONY: install
 
 help:
 	@echo 'SYSTEM SETUP'
@@ -12,15 +12,7 @@ help:
 	@echo 'Dependencies:'
 	@echo 'make, wget, git'
 	@echo ''
-	@echo 'Commands:'
-	@echo 'linux_cmd'
-	@echo 'Usefull linux commands'
-	@echo ''
-	@echo 'update'
-	@echo 'Updates the tools based on the git repo'
-	@echo ''
 	@echo 'install'
-	@echo 'Installs all the tools and reboots'
 	@echo ''
 	@echo 'Tools (can be installed sperately):'
 	@echo '----------------------------'
@@ -33,9 +25,6 @@ help:
 	@echo 'vim'
 	@echo 'Installs the vimrc with plugins and themes'
 	@echo ''
-	@echo 'tmux'
-	@echo 'Installs the tmux tool and links the config'
-	@echo ''
 	@echo 'zsh'
 	@echo 'Installs the zsh shell and links the config and themes'
 	@echo ''
@@ -43,23 +32,10 @@ help:
 	@echo 'Installs systemd services and timers'
 	@echo ''
 	@echo 'configs'
-	@echo 'Installs the configuration of the following items (but does not install the tool itself):'
-	@echo ' - sway'
-	@echo ' - waybar'
 
-install: bash fzf vim tmux zsh systemd configs
+install: bash fzf vim zsh configs
 	# Reboot for all changes to go into effect
-	sudo reboot
-
-linux_cmd:
-	@echo 'USEFULL COMMANDS'
-	@echo '---------------------------------------------'
-	@echo 'nmtui 					network console UI'
-
-update:
-	git reset --hard
-	git checkout master
-	git pull origin master
+	# sudo reboot
 
 bash:
 	rm -rf ~/.bash_tools
@@ -75,17 +51,6 @@ vim:
 	rm -rf ~/.vim
 	ln -snf $(MKFILE_DIR).vim ~/.vim
 	vim +Silent +PlugInstall +qall
-
-tmux:
-	sudo $(PACKAGE_INSTALL) tmux
-	rm -rf ~/.tmux
-	ln -snf $(MKFILE_DIR).tmux ~/.tmux
-	ln -snf $(MKFILE_DIR).tmux.conf ~/.tmux.conf
-
-	rm -rf ~/.tmux/plugins/tpm
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-	~/.tmux/plugins/tpm/bin/install_plugins
 
 zsh:
 	rm -rf ~/.oh-my-zsh
@@ -112,18 +77,12 @@ services:
 	sudo systemctl enable --now systemd_monitor.service
 
 configs:
-	rm -rf ~/.config/sway
-	rm -rf ~/.config/waybar
-	rm -rf ~/.config/wofi
 	rm -rf ~/.config/mako
 	rm -rf ~/.config/i3
 	rm -rf ~/.config/rofi
 	rm -rf ~/.config/alacritty
 	rm -rf ~/.config/picom
 	rm -rf ~/.config/dunst
-	ln -sfn $(MKFILE_DIR).config/sway ~/.config/sway
-	ln -sfn $(MKFILE_DIR).config/waybar ~/.config/waybar
-	ln -sfn $(MKFILE_DIR).config/wofi ~/.config/wofi
 	ln -sfn $(MKFILE_DIR).config/mako ~/.config/mako
 	ln -sfn $(MKFILE_DIR).config/i3 ~/.config/i3
 	ln -sfn $(MKFILE_DIR).config/rofi ~/.config/rofi
