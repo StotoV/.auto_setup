@@ -21,4 +21,5 @@ source $ZSH/oh-my-zsh.sh
 . ~/.bash_profile
 
 # Fuzzy find
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

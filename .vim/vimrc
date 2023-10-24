@@ -47,6 +47,8 @@ set previewheight=5
 set scrolloff=999
 set undodir=~/.vim/undodir
 set undofile
+set directory=~/.vim/swapdir
+set backupdir=~/.vim/swapdir
 let mapleader=' '
 set autoread
 
@@ -84,8 +86,6 @@ Plug 'itchyny/lightline.vim'                                        " Statusbar
 " Generic Programming Support
 Plug 'w0rp/ale'                                                     " Linter
 Plug 'tomtom/tcomment_vim'                                          " Comment whole blocks of code
-" Plug 'szw/vim-tags'
-" Plug 'craigemery/vim-autotag'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'preservim/tagbar'                                             " Tag bar
 Plug 'Valloric/YouCompleteMe'
@@ -102,14 +102,16 @@ Plug 'airblade/vim-gitgutter'                                       " Git change
 Plug 'lervag/vimtex'
 
 " Markdown support
-Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}             " For previewing markdown files
+Plug 'img-paste-devs/img-paste.vim'                                 " Add easy image past into markdown files
+
+" Go support
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Notes
 Plug 'StotoV/zettel'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }   " Fuzzy find support
 Plug 'junegunn/fzf.vim'
-" Plug 'vimwiki/vimwiki'
-" Plug 'michal-h21/vim-zettel'
+Plug 'vim-scripts/AnsiEsc.vim'                                      " Allow ansi colors in vim
 
 " Initialize plugin system
 call plug#end()
@@ -212,6 +214,16 @@ call plug#end()
     set conceallevel=0
 " END INDENTLINE
 
+" START PROJECTROOT
+    let g:rootmarkers = ['.projectroot', '.git', '.zettel']
+" END PROJECTROOT
+
+" START GUTENTAGS
+    let g:gutentags_enabled = 1
+    let g:gutentags_trace = 0
+    let g:gutentags_project_root = ['.projectroot', '.git', '.zettel']
+" END GUTENTAGS
+
 " START FZF
     nnoremap <silent><leader>o :ProjectRootExe FZF<CR>
     nnoremap <silent><leader>O :FZF~<CR>
@@ -229,38 +241,34 @@ call plug#end()
     nmap <silent> <leader>g :TestVisit<CR>
 " END VIM-TEST
 
-" START GUTENTAGS
-    let g:gutentags_enabled = 1
-    let g:gutentags_trace = 0
-" END GUTENTAGS
-
 " START MARKDOWN
     let g:markdown_fenced_languages = ['html', 'python', 'javascript', 'bash', 'php', 'ruby', 'vim']
 " END MARKDOWN
 
-" START NOTES
-    " let g:vimwiki_list = [{'path': '~/Documents/Notes/', 'auto_tags':1, 'syntax':'markdown', 'ext':'.md'}]
-    " let g:nv_search_paths = ['~/Documents/Notes']
-    " let g:zettel_format = "%file_no_%title"
-    " let g:zettel_options = [{"template" :  "~/.vim/ftplugin/zettel.tpl"}]
-    " let g:zettel_default_title = "Note"
-    "
-    " autocmd VimEnter * :ZettelSetActiveWiki 0
-    " nnoremap <leader>zn :ZettelNew<space>
-    " nnoremap <leader>zo :ZettelOpen<CR>
-" END NOTES
+" START IMG-PASTE-DEVS
+    autocmd FileType markdown nmap <buffer><silent> <leader>ip :call mdip#MarkdownClipboardImage()<CR>
+    nnoremap <leader>f :exe ':silent !firefox %'<CR>
+
+    " there are some defaults for image directory and image name, you can change them
+    " let g:mdip_imgdir = 'img'
+    " let g:mdip_imgname = 'image'
+" END IMG-PASTE-DEVS
+
 
 " START ZETTEL
-    let g:zettel_dir = "~/Documents/Notes"
+    let g:zettel_dir = "/home/tom/Documents/Learning/.zettel"
+    let g:zettel_extension = '.md'
     let $FZF_DEFAULT_OPTS="--bind \"alt-j:preview-half-page-down,alt-k:preview-half-page-up\""
-    au BufNewFile,BufRead,BufReadPost *.zettel set syntax=markdown
     let g:markdown_folding = 1
+    let g:foldlevel=1
+    " autocmd BufEnter *.md :AnsiEsc
 
     nnoremap <leader>zn :CreateZettel<space>
-    " nnoremap <leader>ZN :CreateZettelInsertLink<space>
+    nnoremap <leader>zl :CreateZettelInsertLink<space>
     nnoremap <leader>zs :SearchZettels<CR>
     nnoremap <leader>zd :DeleteZettel<space>
     nnoremap <leader>zi :InsertZettelLink<CR>
+    nnoremap <leader>zg :ZettelGraph<CR>
     nnoremap <CR> :FollowLink<CR>
 " END ZETTEL
 

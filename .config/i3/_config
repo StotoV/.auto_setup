@@ -51,6 +51,19 @@ exec_always sudo thermald
 # Special chars
 exec_always setxkbmap us altgr-intl
 
+# Disable screensaver
+exec_always xset s off
+exec_always xset -dpms
+
+# Bluetooth
+exec_always blueman-applet
+
+# Backup monitor
+exec_always /usr/libexec/deja-dup/deja-dup-monitor
+
+# Brightness
+exec_always sudo /usr/bin/brightnessctl -d intel_backlight s 100%
+
 ######################################
 ### Default programs                      
 ######################################
@@ -78,7 +91,7 @@ bar {
 }
 
 default_border pixel 2
-gaps inner 10
+# gaps inner 10
 
 set $highlight #BC2C1A
 client.focused #4c7899 #285577 #ffffff $highlight $highlight
@@ -94,7 +107,8 @@ popup_during_fullscreen smart
 
 group "base" {
     # Lock
-    bindsym $mod+Shift+s exec i3lock -c 000000
+    bindsym $mod+Shift+s exec i3lock -c 000000 && xset dpms force suspend
+    # bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
 
     # Start a terminal
     bindsym $mod+Return exec $term
@@ -148,6 +162,7 @@ group "base" {
 
     # Move to different monitor
     bindsym $mod+m move workspace to output left
+    bindsym $mod+Shift+m move workspace to output up
 
     # Split current object horizontally or vertically
     bindsym $mod+b splith
@@ -194,7 +209,7 @@ group "base" {
     bindsym End exec playerctl previous
     bindsym Insert exec playerctl next
 
-    bindsym $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'
+    bindsym --release $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -s -e 'mv $f ~/Pictures/Screenshots/ && xclip -selection clipboard -t image/png -i ~/Pictures/Screenshots/$f'
 }
 
 mode "resize" {

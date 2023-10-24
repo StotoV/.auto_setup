@@ -8,11 +8,16 @@ exec_always nm-applet --indicator
 exec_always feh --bg-fill ~/Pictures/wallpaper.jpg
 exec_always --no-startup-id picom &
 exec_always --no-startup-id dunst
-exec_always xrandr --dpi 160
+exec_always xrandr --dpi 140
 exec_always --no-startup-id numlockx
 exec_always batsignal -b -e -W 'Battery 15%' -C 'Battery 5%'
 exec_always sudo thermald
 exec_always setxkbmap us altgr-intl
+exec_always xset s off
+exec_always xset -dpms
+exec_always blueman-applet
+exec_always /usr/libexec/deja-dup/deja-dup-monitor
+exec_always sudo /usr/bin/brightnessctl -d intel_backlight s 100%
 set $term alacritty
 set $menu rofi -show run
 font pango:DejaVu Sans Mono 12
@@ -26,11 +31,10 @@ inactive_workspace #32323200 #32323200 #5c5c5c
 }
 }
 default_border pixel 2
-gaps inner 10
 set $highlight #BC2C1A
 client.focused #4c7899 #285577 #ffffff $highlight $highlight
 popup_during_fullscreen smart
-bindsym $mod+Shift+s exec i3lock -c 000000
+bindsym $mod+Shift+s exec i3lock -c 000000 && xset dpms force suspend
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+space exec $menu
@@ -60,6 +64,7 @@ bindsym $mod+mod2+KP_1 mode "num_1"
 bindsym $mod+mod2+KP_2 mode "num_2"
 bindsym $mod+mod2+KP_3 mode "num_3"
 bindsym $mod+m move workspace to output left
+bindsym $mod+Shift+m move workspace to output up
 bindsym $mod+b splith
 bindsym $mod+v splitv
 bindsym $mod+s layout stacking
@@ -81,7 +86,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym Home exec playerctl play-pause
 bindsym End exec playerctl previous
 bindsym Insert exec playerctl next
-bindsym $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'
+bindsym --release $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -s -e 'mv $f ~/Pictures/Screenshots/ && xclip -selection clipboard -t image/png -i ~/Pictures/Screenshots/$f'
 mode "resize" {
 bindsym $left resize shrink width 20px
 bindsym $down resize grow height 20px
@@ -101,7 +106,7 @@ bindsym $mod+Shift+4 move container to workspace number 4
 bindsym $mod+Shift+5 move container to workspace number 5
 bindsym $mod+Shift+6 move container to workspace number 6
 mode "num_1" {
-bindsym $mod+Shift+s exec i3lock -c 000000
+bindsym $mod+Shift+s exec i3lock -c 000000 && xset dpms force suspend
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+space exec $menu
@@ -131,6 +136,7 @@ bindsym $mod+mod2+KP_1 mode "num_1"
 bindsym $mod+mod2+KP_2 mode "num_2"
 bindsym $mod+mod2+KP_3 mode "num_3"
 bindsym $mod+m move workspace to output left
+bindsym $mod+Shift+m move workspace to output up
 bindsym $mod+b splith
 bindsym $mod+v splitv
 bindsym $mod+s layout stacking
@@ -152,7 +158,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym Home exec playerctl play-pause
 bindsym End exec playerctl previous
 bindsym Insert exec playerctl next
-bindsym $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'
+bindsym --release $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -s -e 'mv $f ~/Pictures/Screenshots/ && xclip -selection clipboard -t image/png -i ~/Pictures/Screenshots/$f'
 bindsym $mod+2 workspace number 12
 bindsym $mod+3 workspace number 13
 bindsym $mod+4 workspace number 14
@@ -165,7 +171,7 @@ bindsym $mod+Shift+5 move container to workspace number 15
 bindsym $mod+Shift+6 move container to workspace number 16
 }
 mode "num_2" {
-bindsym $mod+Shift+s exec i3lock -c 000000
+bindsym $mod+Shift+s exec i3lock -c 000000 && xset dpms force suspend
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+space exec $menu
@@ -195,6 +201,7 @@ bindsym $mod+mod2+KP_1 mode "num_1"
 bindsym $mod+mod2+KP_2 mode "num_2"
 bindsym $mod+mod2+KP_3 mode "num_3"
 bindsym $mod+m move workspace to output left
+bindsym $mod+Shift+m move workspace to output up
 bindsym $mod+b splith
 bindsym $mod+v splitv
 bindsym $mod+s layout stacking
@@ -216,7 +223,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym Home exec playerctl play-pause
 bindsym End exec playerctl previous
 bindsym Insert exec playerctl next
-bindsym $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'
+bindsym --release $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -s -e 'mv $f ~/Pictures/Screenshots/ && xclip -selection clipboard -t image/png -i ~/Pictures/Screenshots/$f'
 bindsym $mod+2 workspace number 22
 bindsym $mod+3 workspace number 23
 bindsym $mod+4 workspace number 24
@@ -229,7 +236,7 @@ bindsym $mod+Shift+5 move container to workspace number 25
 bindsym $mod+Shift+6 move container to workspace number 26
 }
 mode "num_3" {
-bindsym $mod+Shift+s exec i3lock -c 000000
+bindsym $mod+Shift+s exec i3lock -c 000000 && xset dpms force suspend
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+space exec $menu
@@ -259,6 +266,7 @@ bindsym $mod+mod2+KP_1 mode "num_1"
 bindsym $mod+mod2+KP_2 mode "num_2"
 bindsym $mod+mod2+KP_3 mode "num_3"
 bindsym $mod+m move workspace to output left
+bindsym $mod+Shift+m move workspace to output up
 bindsym $mod+b splith
 bindsym $mod+v splitv
 bindsym $mod+s layout stacking
@@ -280,7 +288,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym Home exec playerctl play-pause
 bindsym End exec playerctl previous
 bindsym Insert exec playerctl next
-bindsym $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'
+bindsym --release $mod+p exec scrot '%Y-%m-%d_%H:%M:%S.png' -s -e 'mv $f ~/Pictures/Screenshots/ && xclip -selection clipboard -t image/png -i ~/Pictures/Screenshots/$f'
 bindsym $mod+2 workspace number 32
 bindsym $mod+3 workspace number 33
 bindsym $mod+4 workspace number 34
