@@ -15,5 +15,5 @@ set foldlevel=999
     let b:ale_fixers = ['yapf']
 
     let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
-    nnoremap <silent>gf :ALEFix<CR>
+    nnoremap <silent>af :ALEFix<CR>
 " END ALE
